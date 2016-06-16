@@ -1,5 +1,6 @@
 package com.dzf.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -8,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class LoginAction extends ActionSupport {
     private String username;
     private String password;
+    private String tip;
 
     public String getUsername() {
         return username;
@@ -25,10 +27,35 @@ public class LoginAction extends ActionSupport {
         this.password = password;
     }
 
-    public String execute() throws Exception {
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public String regist() throws Exception {
+        ActionContext.getContext().getSession().put("user", getUsername());
+        setTip("恭喜您," + getUsername() + ",已经注册成功");
+        return SUCCESS;
+    }
+
+    public String login() throws Exception {
+        ActionContext ctx = ActionContext.getContext();
+        Integer counter = (Integer) ctx.getApplication().get("counter");
+        if (counter == null) {
+            counter = 1;
+        } else {
+            counter = counter + 1;
+        }
+        ctx.getApplication().put("counter", counter);
+        ctx.getSession().put("user", getUsername());
         if (getUsername().equals("admin") && getPassword().equals("admin")) {
+            ctx.put("tip", "服务器提示：您已经成功登陆");
             return SUCCESS;
         } else {
+            ctx.put("tip", "服务器提示：登陆失败");
             return ERROR;
         }
     }

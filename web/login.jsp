@@ -1,4 +1,3 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,15 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <title>Title</title>
+    <script type="text/javascript">
+        function login() {
+            var targetForm = document.forms[0];
+            targetForm.action = "loginAction.action";
+        }
+        function regist() {
+            var targetForm = document.forms[0];
+            targetForm.action = "registAction.action";
+        }
+    </script>
 </head>
 <body>
-<s:form action="login">
-    <s:textfield name="username" key="user"/>
-    <s:textfield name="password" key="pass"/>
-    <s:submit key="login"/>
-</s:form>
+<form name="login" action="loginAction.action" method="post">
+    用户名：<input type="text" name="username" id="username"/><br/>
+    密码：<input type="text" name="password" id="password"/><br/>
+    <input type="submit" value="1111"/>
+    <input type="submit" value="button" onclick="regist();"/>
+</form>
 </body>
 </html>

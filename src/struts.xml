@@ -5,10 +5,11 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+    <constant name="struts.devMode" value="true"/>
     <package name="default" namespace="/" extends="struts-default">
-        <action name="login" class="com.dzf.action.LoginAction">
+        <action name="*Action" class="com.dzf.action.LoginAction" method="{1}">
             <result name="input">/login.jsp</result>
-            <result name="success">/success.jsp</result>
+            <result name="success">/{1}Success.jsp</result>
             <result name="error">/error.jsp</result>
         </action>
     </package>
